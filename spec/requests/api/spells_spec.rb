@@ -13,7 +13,7 @@ describe "Api::Spells" do
     end
 
     it "shows all spells" do
-      expect(json.map{|s| s['id']}).to include *(spells.map{|s| s['id']})
+      expect(json.map{|s| s['id']}).to eq spells.map{|s| s['id']}
     end
   end
 

@@ -9,7 +9,7 @@ class Api::SpellsController < ApplicationController
     render json: @spells
   end
 
-  # GET /api/spells/1
+  # GET /api/spells/:id
   def show
     render json: @spell
   end
@@ -25,7 +25,7 @@ class Api::SpellsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/spells/1
+  # PATCH/PUT /api/spells/:id
   def update
     if @spell.update(spell_params)
       render json: @spell
@@ -34,7 +34,7 @@ class Api::SpellsController < ApplicationController
     end
   end
 
-  # DELETE /api/spells/1
+  # DELETE /api/spells/:id
   def destroy
     @spell.destroy
 
