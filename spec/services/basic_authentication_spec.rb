@@ -19,6 +19,16 @@ describe BasicAuthentication do
     it { is_expected.to be_guest }
   end
 
+  context "with invalid password" do
+    let(:user) { create(:user) }
+
+    let(:env) do
+      { "HTTP_AUTHORIZATION" => encode_credentials(user.username, Faker::Internet.password) }
+    end
+
+    it { is_expected.to be_guest }
+  end
+
   context "with valid credentials" do
     let(:user) { create(:user) }
     

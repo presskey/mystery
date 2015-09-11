@@ -4,6 +4,7 @@ ruby '2.2.2'
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'pundit'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'pry'
