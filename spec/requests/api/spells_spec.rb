@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe "Api::Spells" do
 
+  let(:admin) { create(:user, :admin) }
+  
+  before { authenticate(admin) }
+
   describe "GET /api/spells.json" do
     subject { get api_spells_path(format: 'json') }
     let!(:spells) { create_list(:spell, 5) }

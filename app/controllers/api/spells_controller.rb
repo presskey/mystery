@@ -11,12 +11,15 @@ class Api::SpellsController < ApplicationController
 
   # GET /api/spells/:id
   def show
+    authorize @spell
+
     render json: @spell
   end
 
   # POST /api/spells
   def create
     @spell = Spell.new(spell_params)
+    authorize @spell
 
     if @spell.save
       render json: @spell, status: :created, location: [:api, @spell]
@@ -27,6 +30,8 @@ class Api::SpellsController < ApplicationController
 
   # PATCH/PUT /api/spells/:id
   def update
+    authorize @spell
+
     if @spell.update(spell_params)
       render json: @spell
     else
@@ -36,6 +41,7 @@ class Api::SpellsController < ApplicationController
 
   # DELETE /api/spells/:id
   def destroy
+    authorize @spell
     @spell.destroy
 
     render nothing: true, status: :no_content

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe "Api::Ingredients" do
 
+  let(:admin) { create(:user, :admin) }
+  
+  before { authenticate(admin) }
+  
   describe "GET /api/spells/:spell_id/ingredients.json" do
     let(:spell) { create(:spell) }
     let!(:spell_ingredients) { create_list(:ingredient, 5, spell: spell) }

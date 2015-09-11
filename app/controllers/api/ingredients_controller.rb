@@ -12,12 +12,15 @@ class Api::IngredientsController < ApplicationController
 
   # GET /api/ingredients/:id
   def show
+    authorize @ingredient
+
     render json: @ingredient
   end
 
   # POST /api/spells/:spell_id/ingredients
   def create
     @ingredient = @spell.ingredients.new(ingredient_params)
+    authorize @ingredient
 
     if @ingredient.save
       render json: @ingredient, status: :created, location: [:api, @ingredient]
@@ -28,6 +31,8 @@ class Api::IngredientsController < ApplicationController
 
   # PATCH/PUT /api/ingredients/:id
   def update
+    authorize @ingredient
+
     if @ingredient.update(ingredient_params)
       render json: @ingredient
     else
@@ -37,6 +42,7 @@ class Api::IngredientsController < ApplicationController
 
   # DELETE /api/ingredients/:id
   def destroy
+    authorize @ingredient
     @ingredient.destroy
 
     render nothing: true, status: :no_content

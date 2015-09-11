@@ -1,0 +1,2 @@
+class IngredientPolicy < ApplicationPolicy
+end

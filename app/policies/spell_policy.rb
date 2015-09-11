@@ -1,0 +1,2 @@
+class SpellPolicy < ApplicationPolicy
+end
