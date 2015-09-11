@@ -67,6 +67,11 @@ describe "Api::Spells" do
         expect(json['name']).to eq created_spell.name
         expect(json['description']).to eq created_spell.description
       end
+
+      it "sets spell owner" do
+        subject
+        expect(Spell.last.owner).to eq controller.current_user
+      end
     end
   end
 

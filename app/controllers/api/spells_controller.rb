@@ -18,7 +18,7 @@ class Api::SpellsController < ApplicationController
 
   # POST /api/spells
   def create
-    @spell = Spell.new(spell_params)
+    @spell = current_user.spells.new(spell_params)
     authorize @spell
 
     if @spell.save
