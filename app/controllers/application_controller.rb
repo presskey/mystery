@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from(Pundit::NotAuthorizedError)         { head :forbidden }
   rescue_from(ActiveRecord::RecordNotFound)       { head :not_found }
+  rescue_from(ActionController::RoutingError)     { head :not_found }
   rescue_from(ActionController::ParameterMissing) { head :bad_request }
 
   before_action :authenticate
@@ -13,6 +14,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     @current_user = BasicAuthentication.new(request).authenticate
+  end
+
+  def routing_error
+    raise ActionController::RoutingError.new("No route matches #{params[:unmatched_route]}")
   end
 
 end
