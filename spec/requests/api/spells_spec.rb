@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "Api::Spells" do
 
   let(:admin) { create(:user, :admin) }
-  
+
   before { authenticate(admin) }
 
   describe "GET /api/spells.json" do
@@ -12,8 +12,8 @@ describe "Api::Spells" do
 
     before { subject }
 
-    it "works" do
-      expect(response).to be_success
+    it "has 200 (OK) status code" do
+      expect(response).to be_ok
     end
 
     it "shows all spells" do
@@ -27,8 +27,8 @@ describe "Api::Spells" do
 
     before { subject }
 
-    it "works" do
-      expect(response).to be_success
+    it "has 200 (OK) status code" do
+      expect(response).to be_ok
     end
 
     it "shows requested spell" do
@@ -43,7 +43,7 @@ describe "Api::Spells" do
     context "with invalid params" do
       let(:spell_params) { {wrong: 'parameter'} }
 
-      it "responds with unprocessable entity" do
+      it "has 422 (Unprocessable Entity) status code" do
         subject
         expect(response).to be_unprocessable
       end
@@ -52,7 +52,7 @@ describe "Api::Spells" do
     context "with valid params" do
       let(:spell_params) { attributes_for(:spell) }
 
-      it "works" do
+      it "has 201 (Created) status code" do
         subject
         expect(response).to be_created
       end
@@ -82,7 +82,7 @@ describe "Api::Spells" do
     context "with invalid params" do
       let(:spell_params) { {name: ''} }
 
-      it "responds with unprocessable entity" do
+      it "has 422 (Unprocessable Entity) status code" do
         subject
         expect(response).to be_unprocessable
       end
@@ -91,9 +91,9 @@ describe "Api::Spells" do
     context "with valid params" do
       let(:spell_params) { {name: Faker::Lorem.word} }
 
-      it "works" do
+      it "has 200 (OK) status code" do
         subject
-        expect(response).to be_success
+        expect(response).to be_ok
       end
 
       it "updates specified spell" do
@@ -112,9 +112,9 @@ describe "Api::Spells" do
     let!(:spell) { create(:spell) }
     subject { delete api_spell_path(spell, format: 'json') }
 
-    it "works" do
+    it "has 204 (No Content) status code" do
       subject
-      expect(response).to be_success
+      expect(response).to have_http_status(:no_content)
     end
 
     it "deletes spell" do

@@ -3,9 +3,9 @@ require 'rails_helper'
 describe "Api::Ingredients" do
 
   let(:admin) { create(:user, :admin) }
-  
+
   before { authenticate(admin) }
-  
+
   describe "GET /api/spells/:spell_id/ingredients.json" do
     let(:spell) { create(:spell) }
     let!(:spell_ingredients) { create_list(:ingredient, 5, spell: spell) }
@@ -15,8 +15,8 @@ describe "Api::Ingredients" do
 
     before { subject }
 
-    it "works" do
-      expect(response).to be_success
+    it "has 200 (OK) status code" do
+      expect(response).to be_ok
     end
 
     it "shows all spell ingredients" do
@@ -30,8 +30,8 @@ describe "Api::Ingredients" do
 
     before { subject }
 
-    it "works" do
-      expect(response).to be_success
+    it "has 200 (OK) status code" do
+      expect(response).to be_ok
     end
 
     it "shows requested ingredient" do
@@ -47,7 +47,7 @@ describe "Api::Ingredients" do
     context "with invalid params" do
       let(:ingredient_params) { {wrong: 'parameter'} }
 
-      it "responds with unprocessable entity" do
+      it "has 422 (Unprocessable Entity) status code" do
         subject
         expect(response).to be_unprocessable
       end
@@ -56,7 +56,7 @@ describe "Api::Ingredients" do
     context "with valid params" do
       let(:ingredient_params) { attributes_for(:ingredient) }
 
-      it "works" do
+      it "has 201 (Created) status code" do
         subject
         expect(response).to be_created
       end
@@ -86,7 +86,7 @@ describe "Api::Ingredients" do
     context "with invalid params" do
       let(:ingredient_params) { {name: ''} }
 
-      it "responds with unprocessable entity" do
+      it "has 422 (Unprocessable Entity) status code" do
         subject
         expect(response).to be_unprocessable
       end
@@ -95,9 +95,9 @@ describe "Api::Ingredients" do
     context "with valid params" do
       let(:ingredient_params) { {name: Faker::Lorem.word} }
 
-      it "works" do
+      it "has 200 (OK) status code" do
         subject
-        expect(response).to be_success
+        expect(response).to be_ok
       end
 
       it "updates specified ingredient" do
@@ -116,9 +116,9 @@ describe "Api::Ingredients" do
     let!(:ingredient) { create(:ingredient) }
     subject { delete api_ingredient_path(ingredient, format: 'json') }
 
-    it "works" do
+    it "has 204 (No Content) status code" do
       subject
-      expect(response).to be_success
+      expect(response).to have_http_status(:no_content)
     end
 
     it "deletes ingredient" do
