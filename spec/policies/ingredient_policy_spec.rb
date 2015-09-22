@@ -72,9 +72,21 @@ describe IngredientPolicy do
     end
 
     permissions :create? do
-      it "grants access" do
-        expect(subject).to permit(user, ingredient)
+
+      context "when user owns parent spell record" do
+        let(:spell) { create(:spell, owner: user) }
+
+        it "grants access" do
+          expect(subject).to permit(user, ingredient)
+        end
       end
+
+      context "when user doesnt own parent spell record" do
+        it "denies access" do
+          expect(subject).not_to permit(user, ingredient)
+        end
+      end
+
     end
 
     permissions :update? do

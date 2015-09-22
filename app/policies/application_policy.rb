@@ -15,7 +15,7 @@ class ApplicationPolicy
   end
 
   def create?
-    !user.guest?
+    false
   end
 
   def update?
@@ -25,4 +25,5 @@ class ApplicationPolicy
   def destroy?
     user.admin? || (!user.guest? && record.owned_by?(user))
   end
+
 end
