@@ -30,3 +30,6 @@ $ rails s
 ```
 $ rspec -fd spec/
 ```
+
+## License
+Mysterious Ruby Backend is released under the [MIT License](http://www.opensource.org/licenses/MIT).
